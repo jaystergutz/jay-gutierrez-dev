@@ -1,5 +1,5 @@
-# jay-gutierrez-dev
-A personal website showcasing my professional background, skills, and projects, along with a contact form
+# JAY-GUTIERREZ-DEV
+A personal website showcasing my professional background, skills, and projects, along with a contact form.
 
 ## Running the code
 
