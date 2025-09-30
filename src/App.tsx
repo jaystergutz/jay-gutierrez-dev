@@ -42,6 +42,13 @@ export default function App() {
     a.click();
   };
 
+  const scrollToWork = () => {
+    const workSection = document.getElementById('about');
+    if (workSection) {
+      workSection.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
   return (
     <div className="min-h-screen bg-background overflow-x-hidden">
       <FloatingShapes />
@@ -87,7 +94,7 @@ export default function App() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.8 }}
             >
-              <Button size="lg" className="relative overflow-hidden group">
+              <Button size="lg" className="relative overflow-hidden group" onClick={scrollToWork}>
                 <motion.span
                   className="relative z-10"
                   whileHover={{ scale: 1.05 }}
@@ -180,7 +187,7 @@ export default function App() {
       </section>
 
       {/* About Section */}
-      <section className="py-20 relative z-10">
+      <section id="about" className="py-20 relative z-10">
         <div className="container mx-auto px-6">
           <div className="grid md:grid-cols-2 gap-30 sm:gap-x-20 items-center max-w-6xl mx-auto">
             <motion.div
