@@ -1,4 +1,4 @@
-import { useRef, ReactNode, useState } from "react";
+import { useRef, ReactNode, useState, useEffect } from "react";
 import { Input } from "./ui/input";
 import { Button } from "./ui/button";
 import Textarea from "./ui/textarea";
@@ -9,6 +9,14 @@ export default function ContactForm({ children }: { children: ReactNode }) {
   const [state, handleSubmit] = useForm("xgvnvaod");
   const [emailError, setEmailError] = useState<boolean>(false);
   const [messageError, setMessageError] = useState<boolean>(false);
+
+  useEffect(() => {
+    if (state.succeeded) {
+      setTimeout(() => {
+        closeDialog();
+      }, 3000);
+    }
+  }, [state.succeeded]);
 
   const openDialog = () => {
     dialogRef.current?.showModal();
@@ -21,21 +29,11 @@ export default function ContactForm({ children }: { children: ReactNode }) {
   const onChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
-    // setEmailError(false);
     e.currentTarget.name === "email"
       ? setEmailError(false)
       : setMessageError(false);
-    // setMessageError(false );
   };
 
-  // const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-  //   e.preventDefault();
-  //   const formData = new FormData(e.currentTarget);
-  //   const name = formData.get("name") as string;
-  //   const email = formData.get("email") as string;
-  //   const message = formData.get("message") as string;
-  //   console.log("Form submitted", name, email, message);
-  // };
 
   const validate = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
