@@ -1,5 +1,5 @@
 import { motion, useScroll, useTransform } from 'motion/react';
-import { ArrowDown, Github, Linkedin, Mail, Code, Palette, Zap, Globe, Smartphone, Database, Codesandbox, TestTubes, FolderTree, CodeXml, Braces, Blocks, BookOpenText } from 'lucide-react';
+import { ArrowDown, Github, Linkedin, Mail, Code, Palette, Zap, Globe, Smartphone, Database, Codesandbox, TestTubes, FolderTree, CodeXml, Braces, Blocks, BookOpenText, GitCompare, Scroll } from 'lucide-react';
 import { Button } from './components/ui/button';
 import { Badge } from './components/ui/badge';
 import { FloatingShapes } from './components/FloatingShapes';
@@ -20,12 +20,12 @@ export default function App() {
     { icon: Zap, name: 'Typescript' },
     { icon: CodeXml, name: 'HTML5' },
     { icon: FolderTree, name: 'Redux/NgRx' },
-    {}, // Grid filler
+    { icon: Scroll, name: 'Javascript' },
     { icon: Database, name: 'REST/GraphQL' },
     { icon: Blocks, name: 'Vite/Webpack' },
     { icon: TestTubes, name: 'Jasmine/RTL/Jest' },
     { icon: BookOpenText, name: 'Storybook' },
-    {} // Grid filler
+    { icon: GitCompare, name: 'Git' },
   ];
 
   const typewriterTexts = [
@@ -94,15 +94,17 @@ export default function App() {
                 />
               </Button>
               
-              <Button variant="outline" size="lg" className="group">
-                <motion.span
-                  whileHover={{ scale: 1.05 }}
-                  className="flex items-center gap-2"
-                >
-                  <Mail className="w-4 h-4 group-hover:rotate-12 transition-transform" />
-                  Get In Touch
-                </motion.span>
-              </Button>
+              <ContactForm>
+                <Button variant="outline" size="lg" className="group">
+                  <motion.span
+                    whileHover={{ scale: 1.05 }}
+                    className="flex items-center gap-2"
+                  >
+                    <Mail className="w-4 h-4 group-hover:rotate-12 transition-transform" />
+                    Get In Touch
+                  </motion.span>
+                </Button>
+              </ContactForm>
             </motion.div>
             
             <motion.div 
@@ -173,7 +175,7 @@ export default function App() {
       {/* About Section */}
       <section className="py-20 relative z-10">
         <div className="container mx-auto px-6">
-          <div className="grid md:grid-cols-2 gap-12 items-center max-w-6xl mx-auto">
+          <div className="grid md:grid-cols-2 gap-30 sm:gap-x-20 items-center max-w-6xl mx-auto">
             <motion.div
               initial={{ opacity: 0, x: -50 }}
               whileInView={{ opacity: 1, x: 0 }}

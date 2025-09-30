@@ -55,7 +55,7 @@ export function CareerTimeline() {
           <Briefcase className="w-5 h-5 text-primary" />
           <span className="text-lg">Career Journey</span>
         </div>
-        <p className="text-muted-foreground">7 years • 4 companies</p>
+        <p className="text-muted-foreground">7 years • Multiple Industries</p>
       </motion.div>
 
       {/* Timeline */}

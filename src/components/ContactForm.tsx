@@ -1,52 +1,121 @@
-import { useRef, ReactNode } from "react";
+import { useRef, ReactNode, useState } from "react";
+import { Input } from "./ui/input";
+import { Button } from "./ui/button";
+import Textarea from "./ui/textarea";
+import { useForm } from "@formspree/react";
 
-export default function ContactForm({
-  children,
-}: {
-  children: ReactNode;
-}) {
+export default function ContactForm({ children }: { children: ReactNode }) {
   const dialogRef = useRef<HTMLDialogElement>(null);
+  const [state, handleSubmit] = useForm("xgvnvaod");
+  const [emailError, setEmailError] = useState<boolean>(false);
+  const [messageError, setMessageError] = useState<boolean>(false);
 
   const openDialog = () => {
-    dialogRef.current?.show();
+    dialogRef.current?.showModal();
   };
 
   const closeDialog = () => {
     dialogRef.current?.close();
   };
 
+  const onChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    // setEmailError(false);
+    e.currentTarget.name === "email"
+      ? setEmailError(false)
+      : setMessageError(false);
+    // setMessageError(false );
+  };
+
+  // const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  //   e.preventDefault();
+  //   const formData = new FormData(e.currentTarget);
+  //   const name = formData.get("name") as string;
+  //   const email = formData.get("email") as string;
+  //   const message = formData.get("message") as string;
+  //   console.log("Form submitted", name, email, message);
+  // };
+
+  const validate = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const formData = new FormData(e.currentTarget);
+    const email = formData.get("email") as string;
+    const validEmail =
+      email.match(/^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,5}$/) !== null;
+    const messagePresent = formData.get("message") as string;
+    setEmailError(!validEmail);
+    setMessageError(!messagePresent);
+    if (validEmail && messagePresent) {
+      handleSubmit(e);
+    }
+  };
+
   return (
     <>
-      <div onClick={openDialog}>
-        {children}
-      </div>
-      
+      <div onClick={openDialog}>{children}</div>
+
       <dialog
         ref={dialogRef}
-        className="backdrop:bg-black/50 backdrop:backdrop-blur-sm bg-white dark:bg-gray-900 rounded-lg shadow-xl p-6 max-w-md w-full border-0"
+        className="backdrop:bg-black/10 bg-white rounded-lg shadow-xl p-5 m-3 max-w-fit w-full border-0 m-auto"
         onClose={closeDialog}
       >
         <div className="flex justify-between items-center mb-4">
           <h2 className="text-xl font-semibold">Contact Me</h2>
-          <button
+          <Button
             onClick={closeDialog}
-            className="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200 text-xl leading-none"
             aria-label="Close dialog"
+            variant="ghost"
+            size="icon"
+            className="text-xl leading-none"
           >
             ×
-          </button>
+          </Button>
         </div>
-        
-        <p className="text-gray-600 dark:text-gray-300 mb-4">
+
+        <p className="text-gray-600 mb-4 text-left">
           Send me a message and I'll get back to you as soon as possible.
         </p>
-        
-        <div className="py-4">
-          {/* Form content will go here */}
-          <p className="text-sm text-gray-500 dark:text-gray-400">
-            Form inputs will be added here...
+
+        {state.succeeded ? (
+          <p className="text-green-600 mb-4 text-left">
+            Message sent successfully!
           </p>
-        </div>
+        ) : (
+          <form className="py-4 flex flex-col gap-4" onSubmit={validate}>
+            {/* Form content will go here */}
+            <Input name="name" placeholder="Name" />
+            <div className="flex flex-col gap-1">
+              <Input
+                name="email"
+                onChange={onChange}
+                aria-invalid={emailError}
+                placeholder="Email Address"
+                type="text"
+              />
+              {emailError && (
+                <p className="text-sm text-left text-red-500">
+                  Please enter a valid email
+                </p>
+              )}
+            </div>
+            <div className="flex flex-col gap-1">
+              <Textarea
+                name="message"
+                placeholder="Message"
+                rows={5}
+                onChange={onChange}
+                aria-invalid={messageError}
+              />
+              {messageError && (
+                <p className="text-sm text-left text-red-500">
+                  Please enter a message
+                </p>
+              )}
+            </div>
+            <Button type="submit">Submit</Button>
+          </form>
+        )}
       </dialog>
     </>
   );
