@@ -128,9 +128,9 @@ export default function App() {
               transition={{ duration: 0.8, delay: 1 }}
             >
               {[
-                { icon: Github, href: '#', label: 'GitHub' },
-                { icon: Linkedin, href: '#', label: 'LinkedIn' },
-                { icon: Mail, href: '#', label: 'Email' }
+                { icon: Github, href: 'https://github.com/jaystergutz', label: 'GitHub' },
+                { icon: Linkedin, href: 'https://www.linkedin.com/in/jbgutierrez/', label: 'LinkedIn' },
+                { icon: Mail, href: 'mailto:jbgutierrez888@gmail.com', label: 'Email' }
               ].map((social) => (
                 <motion.a
                   key={social.label}
