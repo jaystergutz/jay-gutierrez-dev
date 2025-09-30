@@ -35,6 +35,13 @@ export default function App() {
     "JavaScript Expert"
   ];
 
+  const downloadResume = () => {
+    const a = document.createElement('a');
+    a.href = '/Resume - Jay Gutierrez.pdf';
+    a.download = 'Resume - Jay Gutierrez.pdf';
+    a.click();
+  };
+
   return (
     <div className="min-h-screen bg-background overflow-x-hidden">
       <FloatingShapes />
@@ -250,7 +257,7 @@ export default function App() {
               </Button>
               </ContactForm>
               
-              <Button variant="outline" size="lg">
+              <Button variant="outline" size="lg" onClick={downloadResume}>
                 <motion.span
                   whileHover={{ scale: 1.05 }}
                   className="flex items-center gap-2"

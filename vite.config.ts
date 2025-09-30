@@ -18,6 +18,7 @@
     },
     server: {
       port: 3000,
+      host: true, // This makes the server accessible on your local network
       open: true,
     },
   });
